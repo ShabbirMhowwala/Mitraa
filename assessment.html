@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust - Mental Health Assessment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4a90e2;
+            --dark-blue: #3a70b2;
+            --light-blue: #e0f0ff;
+            --lavender: #f5f0ff;
+            --amber: #ff9f43;
+            --dark-amber: #e08a3a;
+            --green: #6dd5a1;
+            --dark-green: #4caf7d;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --gradient-bg: linear-gradient(135deg, #f0f5ff 0%, #f5f0ff 100%);
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Nunito', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 18px 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-blue);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover .logo-icon {
+            transform: scale(1.08);
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 20px 0 60px;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-blue);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.4rem;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Assessment Grid */
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .assessment-card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .assessment-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary-blue);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .assessment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .assessment-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-blue);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-blue);
+            font-size: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .assessment-card:hover .card-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--light-blue), var(--lavender));
+        }
+        
+        .assessment-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .assessment-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .card-footer {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-top: auto;
+        }
+        
+        /* Assessment */
+        .assessment-container {
+            position: relative;
+        }
+        
+        .assessment-progress {
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-container {
+            background: var(--light-blue);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--primary-blue);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding-top: 10px;
+            font-weight: 500;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        
+        .option-square {
+            padding: 20px;
+            background: var(--white);
+            border: 2px solid #e8e8e8;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .option-square:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.2);
+            border-color: var(--primary-blue);
+        }
+        
+        .option-square.selected {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--dark-blue);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .assessment-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        /* Support Message */
+        .support-message {
+            background: var(--lavender);
+            border-radius: 16px;
+            padding: 22px;
+            margin: 30px 0;
+            text-align: center;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary-blue);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .support-message i {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+        
+        .support-message p {
+            margin-left: 40px;
+        }
+        
+        /* Results */
+        .result-card {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .result-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--light-blue);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary-blue);
+            font-size: 40px;
+        }
+        
+        .result-score {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding: 12px 24px;
+            background: var(--light-blue);
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .result-message {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .result-severity {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .severity-minimal {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .severity-mild {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+        
+        .severity-moderate {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .severity-severe {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+        
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.05rem;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+        }
+        
+        .btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn-amber {
+            background: var(--amber);
+        }
+        
+        .btn-amber:hover {
+            background: var(--dark-amber);
+            box-shadow: 0 10px 25px rgba(255, 159, 67, 0.3);
+        }
+        
+        .btn-green {
+            background: var(--green);
+        }
+        
+        .btn-green:hover {
+            background: var(--dark-green);
+            box-shadow: 0 10px 25px rgba(109, 213, 161, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn-hero {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            background: var(--primary-blue);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn-hero-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .btn-hero-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        /* Post-Assessment Options */
+        .post-assessment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .option-card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light-blue);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            font-size: 28px;
+        }
+        
+        .option-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+        
+        .option-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--white);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--dark-blue);
+            text-decoration: underline;
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .welcome-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--light-blue);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: var(--primary-blue);
+            font-size: 50px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .assessment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-assessment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 30px;
+            }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .question-text {
+                font-size: 1.15rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .assessment-card {
+                padding: 24px;
+            }
+            
+            .question-container {
+                padding: 24px;
+            }
+            
+            .result-card {
+                padding: 30px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+            }
+            
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+            }
+            
+            .welcome-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo" onclick="showPage('welcome')">
+                <div class="logo-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="logo-text">Trust</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Screen -->
+    <div id="welcome" class="page active">
+        <div class="container welcome-screen">
+            <div class="welcome-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="section-title">
+                <h2>Welcome to Trust Mental Health</h2>
+                <p>Take a confidential assessment to better understand your mental wellbeing and get personalized resources</p>
+            </div>
+            
+            <div class="card">
+                <div class="section-title">
+                    <h3>How It Works</h3>
+                    <p>Our assessments are based on standardized psychological screening tools and take approximately 2 minutes to complete</p>
+                </div>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-hero" onclick="showPage('assessments')">Start Assessment</button>
+                    <button class="btn btn-hero-secondary">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessments Selection Page -->
+    <div id="assessments" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Choose an Assessment</h2>
+                <p>Select the area you'd like to explore. Each assessment takes about 2 minutes to complete.</p>
+            </div>
+            
+            <div class="card">
+                <div class="assessment-grid">
+                    <div class="assessment-card" onclick="selectProblem('depression')">
+                        <div class="card-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Depression (PHQ-9)</h3>
+                        <p>Evaluate feelings of sadness, loss of interest, or changes in energy</p>
+                        <div class="card-footer">9 questions · 2 minutes</div>
+                    </div>
+                    
+                    <div class="assessment-card" onclick="selectProblem('anxiety')">
+                        <div class="card-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <h3>Anxiety (GAD-7)</h3>
+                        <p>Assess worry, nervousness, or physical anxiety symptoms</p>
+                        <div class="card-footer">7 questions · 2 minutes</div>
+                    </div>
+                    
+                    <div class="assessment-card" onclick="selectProblem('burnout')">
+                        <div class="card-icon">
+                            <i class="fas fa-fire-extinguisher"></i>
+                        </div>
+                        <h3>Burnout</h3>
+                        <p>Evaluate emotional exhaustion and work-related fatigue</p>
+                        <div class="card-footer">8 questions · 2 minutes</div>
+                    </div>
+                    
+                    <div class="assessment-card" onclick="selectProblem('sleep')">
+                        <div class="card-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <h3>Sleep Issues</h3>
+                        <p>Assess sleep quality and potential sleep concerns</p>
+                        <div class="card-footer">6 questions · 2 minutes</div>
+                    </div>
+                    
+                    <div class="assessment-card" onclick="selectProblem('social')">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Social Wellbeing</h3>
+                        <p>Explore your social connections and feelings of isolation</p>
+                        <div class="card-footer">7 questions · 2 minutes</div>
+                    </div>
+                    
+                    <div class="assessment-card" onclick="selectProblem('general')">
+                        <div class="card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>General Wellbeing</h3>
+                        <p>Complete a general mental health assessment</p>
+                        <div class="card-footer">8 questions · 2 minutes</div>
+                    </div>
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Remember: This assessment is not a diagnosis. It's a tool to help you understand your mental health better and find appropriate support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Depression Assessment (PHQ-9) -->
+    <div id="depression-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Feelings (PHQ-9)</h2>
+                <p>Over the last 2 weeks, how often have you been bothered by any of the following problems?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="depression-progress"></div>
+                </div>
+                
+                <div id="depression-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>It's okay to feel this way. Your responses help us understand how to best support you.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="depression-prev">Previous</button>
+                    <button class="btn" id="depression-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anxiety Assessment (GAD-7) -->
+    <div id="anxiety-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Anxiety (GAD-7)</h2>
+                <p>Over the last 2 weeks, how often have you been bothered by the following problems?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="anxiety-progress"></div>
+                </div>
+                
+                <div id="anxiety-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>Remember, anxiety is a common experience, and understanding it is the first step toward managing it.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="anxiety-prev">Previous</button>
+                    <button class="btn" id="anxiety-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Burnout Assessment -->
+    <div id="burnout-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Energy Levels</h2>
+                <p>How often have you experienced the following recently?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="burnout-progress"></div>
+                </div>
+                
+                <div id="burnout-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>Burnout is a state of emotional, physical, and mental exhaustion caused by excessive stress.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="burnout-prev">Previous</button>
+                    <button class="btn" id="burnout-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sleep Assessment -->
+    <div id="sleep-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Sleep Patterns</h2>
+                <p>Over the past month, how would you describe your experience with the following?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="sleep-progress"></div>
+                </div>
+                
+                <div id="sleep-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>Sleep is essential for our mental and physical wellbeing. Understanding your patterns is the first step toward better rest.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="sleep-prev">Previous</button>
+                    <button class="btn" id="sleep-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Wellbeing Assessment -->
+    <div id="social-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Social Connections</h2>
+                <p>How often do you experience the following feelings in your relationships?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="social-progress"></div>
+                </div>
+                
+                <div id="social-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>Human connection is fundamental to our wellbeing. Your responses help us understand your social needs.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="social-prev">Previous</button>
+                    <button class="btn" id="social-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Wellbeing Assessment -->
+    <div id="general-assessment" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Understanding Your Overall Wellbeing</h2>
+                <p>How have you been feeling generally over the past few weeks?</p>
+            </div>
+            
+            <div class="card assessment-container">
+                <div class="assessment-progress">
+                    <div class="progress-bar" id="general-progress"></div>
+                </div>
+                
+                <div id="general-questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="support-message">
+                    <i class="fas fa-hands-helping"></i>
+                    <p>Mental health encompasses many aspects of our lives. This assessment helps paint a holistic picture of your wellbeing.</p>
+                </div>
+                
+                <div class="assessment-navigation">
+                    <button class="btn btn-outline" id="general-prev">Previous</button>
+                    <button class="btn" id="general-next">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Page -->
+    <div id="results" class="page">
+        <div class="container main-content">
+            <div class="section-title">
+                <h2>Your Assessment Results</h2>
+                <p>Based on your responses, here's your evaluation and recommended next steps</p>
+            </div>
+            
+            <div class="card result-card">
+                <div class="result-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                
+                <div class="result-score" id="result-score">Score: 0</div>
+                <div class="result-severity" id="result-severity">Minimal</div>
+                
+                <div class="result-message" id="result-message">
+                    Your results will appear here after completing an assessment.
+                </div>
+                
+                <div class="post-assessment-options">
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Talk to a Volunteer</h3>
+                        <p>Connect with a trained volunteer who can provide support and guidance</p>
+                        <button class="btn">Connect Now</button>
+                    </div>
+                    
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Check Resources</h3>
+                        <p>Access helpful resources, articles, and tools tailored to your needs</p>
+                        <button class="btn btn-amber">View Resources</button>
+                    </div>
+                    
+                    <div class="option-card">
+                        <div class="option-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Book Appointment</h3>
+                        <p>Schedule a consultation with a mental health professional</p>
+                        <button class="btn btn-green">Schedule Now</button>
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-outline" onclick="showPage('assessments')">Take Another Assessment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <p>Trust Mental Health Assessment provides screening tools based on established psychological instruments but is not a substitute for professional diagnosis or treatment.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Crisis Resources</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Assessment data with standardized psychological screening tools
+        const assessments = {
+            depression: {
+                title: "Understanding Your Feelings (PHQ-9)",
+                instructions: "Over the last 2 weeks, how often have you been bothered by any of the following problems?",
+                questions: [
+                    "Little interest or pleasure in doing things",
+                    "Feeling down, depressed, or hopeless",
+                    "Trouble falling or staying asleep, or sleeping too much",
+                    "Feeling tired or having little energy",
+                    "Poor appetite or overeating",
+                    "Feeling bad about yourself - or that you are a failure or have let yourself or your family down",
+                    "Trouble concentrating on things, such as reading the newspaper or watching television",
+                    "Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual",
+                    "Thoughts that you would be better off dead, or of hurting yourself in some way"
+                ],
+                options: [
+                    "Not at all",
+                    "Several days",
+                    "More than half the days",
+                    "Nearly every day"
+                ],
+                scoring: [0, 1, 2, 3],
+                messages: [
+                    "Your responses suggest minimal depression symptoms. Keep practicing good mental health habits.",
+                    "Your responses suggest mild depression symptoms. Consider implementing self-care strategies.",
+                    "Your responses indicate moderate depression symptoms. It may be helpful to speak with a mental health professional.",
+                    "Your responses suggest moderately severe depression symptoms. We recommend consulting with a mental health professional.",
+                    "Your responses indicate severe depression symptoms. Please consider reaching out to a mental health professional for support."
+                ]
+            },
+            anxiety: {
+                title: "Understanding Your Anxiety (GAD-7)",
+                instructions: "Over the last 2 weeks, how often have you been bothered by the following problems?",
+                questions: [
+                    "Feeling nervous, anxious, or on edge",
+                    "Not being able to stop or control worrying",
+                    "Worrying too much about different things",
+                    "Trouble relaxing",
+                    "Being so restless that it is hard to sit still",
+                    "Becoming easily annoyed or irritable",
+                    "Feeling afraid as if something awful might happen"
+                ],
+                options: [
+                    "Not at all",
+                    "Several days",
+                    "More than half the days",
+                    "Nearly every day"
+                ],
+                scoring: [0, 1, 2, 3],
+                messages: [
+                    "Your responses suggest minimal anxiety. Remember that occasional worry is normal, and you're managing well.",
+                    "Your responses suggest mild anxiety. Many people experience this, and there are helpful strategies to manage these feelings.",
+                    "Your responses indicate moderate anxiety. Learning specific techniques or talking with someone could be beneficial.",
+                    "Your responses suggest significant anxiety. Professional support can provide effective strategies to manage these feelings.",
+                    "Your responses indicate severe anxiety. Please consider reaching out to a mental health professional who can help."
+                ]
+            },
+            burnout: {
+                title: "Understanding Your Energy Levels",
+                instructions: "How often have you experienced the following recently?",
+                questions: [
+                    "Feeling exhausted or having low energy",
+                    "Feeling disconnected from your work or studies",
+                    "Feeling cynical or critical about your work or studies",
+                    "Difficulty concentrating on your tasks",
+                    "Lacking satisfaction from your achievements",
+                    "Using food, drugs, or alcohol to feel better or to not feel",
+                    "Changes in your sleep patterns",
+                    "Unexplained headaches, stomachaches, or other physical complaints"
+                ],
+                options: [
+                    "Never",
+                    "Rarely",
+                    "Sometimes",
+                    "Often",
+                    "Always"
+                ],
+                scoring: [0, 1, 2, 3, 4],
+                messages: [
+                    "Your responses suggest good energy management. Keep up the healthy habits!",
+                    "Your responses suggest some signs of fatigue. Paying attention to self-care could be helpful.",
+                    "Your responses indicate moderate burnout symptoms. It might be time to evaluate your work-life balance.",
+                    "Your responses suggest significant burnout. Consider making changes and seeking support.",
+                    "Your responses indicate severe burnout. Please prioritize your wellbeing and consider professional support."
+                ]
+            },
+            sleep: {
+                title: "Understanding Your Sleep Patterns",
+                instructions: "Over the past month, how would you describe your experience with the following?",
+                questions: [
+                    "Difficulty falling asleep at night",
+                    "Waking up frequently during the night",
+                    "Waking up too early and not being able to fall back asleep",
+                    "Feeling tired or not well-rested after waking up",
+                    "Feeling sleepy or fatigued during the day",
+                    "Difficulty staying awake while watching TV, reading, or during meetings/classes"
+                ],
+                options: [
+                    "Not at all",
+                    "Rarely (1-2 times per month)",
+                    "Sometimes (1-2 times per week)",
+                    "Often (3-4 times per week)",
+                    "Always (5+ times per week)"
+                ],
+                scoring: [0, 1, 2, 3, 4],
+                messages: [
+                    "Your responses suggest generally healthy sleep patterns. Keep practicing good sleep hygiene!",
+                    "Your responses suggest occasional sleep difficulties. Small adjustments to your routine might help improve your sleep quality.",
+                    "Your responses indicate moderate sleep issues. Consider establishing a more consistent sleep routine and reducing stressors.",
+                    "Your responses suggest significant sleep problems. Improving sleep habits and possibly consulting a professional could be beneficial.",
+                    "Your responses indicate severe sleep disturbances. Please consider speaking with a healthcare provider about your sleep issues."
+                ]
+            },
+            social: {
+                title: "Understanding Your Social Connections",
+                instructions: "How often do you experience the following feelings in your relationships?",
+                questions: [
+                    "Feeling lonely or isolated from others",
+                    "Feeling misunderstood by people around you",
+                    "Difficulty making or maintaining friendships",
+                    "Feeling anxious in social situations",
+                    "Avoiding social gatherings or events",
+                    "Feeling like you don't belong in social groups",
+                    "Worrying about being judged by others"
+                ],
+                options: [
+                    "Never",
+                    "Rarely",
+                    "Sometimes",
+                    "Often",
+                    "Always"
+                ],
+                scoring: [0, 1, 2, 3, 4],
+                messages: [
+                    "Your responses suggest healthy social connections. You seem to have fulfilling relationships in your life.",
+                    "Your responses suggest generally good social wellbeing with occasional challenges. Everyone experiences social difficulties sometimes.",
+                    "Your responses indicate some social challenges. You might benefit from exploring ways to strengthen your social connections.",
+                    "Your responses suggest significant social difficulties. Building social skills and connections could greatly improve your wellbeing.",
+                    "Your responses indicate substantial social challenges. Consider seeking support to develop more fulfilling social connections."
+                ]
+            },
+            general: {
+                title: "Understanding Your Overall Wellbeing",
+                instructions: "How have you been feeling generally over the past few weeks?",
+                questions: [
+                    "Overall, how would you rate your mental health?",
+                    "How often do you feel positive emotions (joy, contentment, peace)?",
+                    "How often do you feel able to handle daily stresses and challenges?",
+                    "How satisfied are you with your life overall?",
+                    "How often do you feel engaged and interested in your daily activities?",
+                    "How often do you feel a sense of purpose or meaning in your life?",
+                    "How well are you able to focus and concentrate on tasks?",
+                    "How often do you feel physically healthy and energetic?"
+                ],
+                options: [
+                    "Very poor/Very rarely",
+                    "Poor/Rarely",
+                    "Fair/Sometimes",
+                    "Good/Often",
+                    "Excellent/Very often"
+                ],
+                scoring: [0, 1, 2, 3, 4],
+                messages: [
+                    "Your responses suggest excellent overall wellbeing. You seem to have good balance and satisfaction in your life.",
+                    "Your responses suggest generally good wellbeing with some areas for improvement. Small changes could enhance your quality of life.",
+                    "Your responses indicate moderate wellbeing. Focusing on self-care and life balance could improve your overall mental health.",
+                    "Your responses suggest some challenges with overall wellbeing. Addressing these areas could significantly improve your quality of life.",
+                    "Your responses indicate significant difficulties with overall wellbeing. Comprehensive support and changes could greatly benefit your mental health."
+                ]
+            }
+        };
+
+        // Current assessment state
+        let currentAssessment = null;
+        let currentAnswers = [];
+        let currentQuestion = 0;
+
+        // Show a specific page
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Reset assessment state when returning to assessments page
+            if (pageId === 'assessments' || pageId === 'welcome') {
+                currentAssessment = null;
+                currentAnswers = [];
+                currentQuestion = 0;
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Select a problem and start assessment
+        function selectProblem(problem) {
+            currentAssessment = problem;
+            currentAnswers = [];
+            currentQuestion = 0;
+            
+            // Initialize answers array
+            for (let i = 0; i < assessments[problem].questions.length; i++) {
+                currentAnswers.push(-1);
+            }
+            
+            // Render questions
+            renderQuestions(problem);
+            
+            // Show the assessment page
+            showPage(problem + '-assessment');
+        }
+
+        // Render questions for an assessment
+        function renderQuestions(assessment) {
+            const assessmentData = assessments[assessment];
+            const questionsContainer = document.getElementById(assessment + '-questions');
+            questionsContainer.innerHTML = '';
+            
+            // Add all questions
+            assessmentData.questions.forEach((question, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'question-container';
+                questionEl.innerHTML = `
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">${question}</div>
+                    <div class="options-grid">
+                        ${assessmentData.options.map((option, optIndex) => `
+                            <div class="option-square" data-value="${optIndex}" onclick="selectOption(${index}, ${optIndex})">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                questionsContainer.appendChild(questionEl);
+            });
+            
+            // Update progress
+            updateProgress(assessment);
+            
+            // Hide all questions except the first one
+            document.querySelectorAll('.question-container').forEach((q, i) => {
+                q.style.display = i === 0 ? 'block' : 'none';
+            });
+            
+            // Set up navigation
+            setupNavigation(assessment);
+        }
+
+        // Set up navigation for an assessment
+        function setupNavigation(assessment) {
+            const prevBtn = document.getElementById(assessment + '-prev');
+            const nextBtn = document.getElementById(assessment + '-next');
+            
+            prevBtn.onclick = () => navigateQuestion(assessment, -1);
+            nextBtn.onclick = () => navigateQuestion(assessment, 1);
+            
+            // Initially disable previous button
+            prevBtn.disabled = true;
+        }
+
+        // Navigate between questions
+        function navigateQuestion(assessment, direction) {
+            const questions = document.querySelectorAll('#' + assessment + '-questions .question-container');
+            const prevBtn = document.getElementById(assessment + '-prev');
+            const nextBtn = document.getElementById(assessment + '-next');
+            
+            // Hide current question
+            questions[currentQuestion].style.display = 'none';
+            
+            // Change current question
+            currentQuestion += direction;
+            
+            // Show new current question
+            questions[currentQuestion].style.display = 'block';
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = 'See Results';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            
+            // If we're on the last question and clicking "See Results"
+            if (currentQuestion === questions.length - 1 && direction === 1 && nextBtn.textContent === 'See Results') {
+                calculateResults(assessment);
+                showPage('results');
+                return;
+            }
+            
+            // Update progress
+            updateProgress(assessment);
+        }
+
+        // Select an option for a question
+        function selectOption(questionIndex, optionIndex) {
+            // Remove selected class from all options in this question
+            const options = document.querySelectorAll(`#${currentAssessment}-questions .question-container:nth-child(${questionIndex + 1}) .option-square`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            options[optionIndex].classList.add('selected');
+            
+            // Store the answer
+            currentAnswers[questionIndex] = optionIndex;
+        }
+
+        // Update progress bar
+        function updateProgress(assessment) {
+            const progressBar = document.getElementById(assessment + '-progress');
+            const progress = ((currentQuestion + 1) / assessments[assessment].questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Calculate assessment results
+        function calculateResults(assessment) {
+            const assessmentData = assessments[assessment];
+            let totalScore = 0;
+            
+            // Calculate total score
+            for (let i = 0; i < currentAnswers.length; i++) {
+                if (currentAnswers[i] >= 0) {
+                    totalScore += assessmentData.scoring[currentAnswers[i]];
+                }
+            }
+            
+            // Calculate max score based on assessment type
+            let maxScore = 0;
+            if (assessment === 'depression') maxScore = 27; // PHQ-9
+            else if (assessment === 'anxiety') maxScore = 21; // GAD-7
+            else maxScore = Math.max(...assessmentData.scoring) * assessments[assessment].questions.length;
+            
+            // Display score
+            document.getElementById('result-score').textContent = `Score: ${totalScore}/${maxScore}`;
+            
+            // Determine severity and message based on score
+            let severity = '';
+            let message = '';
+            let severityClass = '';
+            
+            if (assessment === 'depression') {
+                // PHQ-9 scoring
+                if (totalScore >= 0 && totalScore <= 4) {
+                    severity = 'Minimal';
+                    message = assessmentData.messages[0];
+                    severityClass = 'severity-minimal';
+                } else if (totalScore >= 5 && totalScore <= 9) {
+                    severity = 'Mild';
+                    message = assessmentData.messages[1];
+                    severityClass = 'severity-mild';
+                } else if (totalScore >= 10 && totalScore <= 14) {
+                    severity = 'Moderate';
+                    message = assessmentData.messages[2];
+                    severityClass = 'severity-moderate';
+                } else if (totalScore >= 15 && totalScore <= 19) {
+                    severity = 'Moderately Severe';
+                    message = assessmentData.messages[3];
+                    severityClass = 'severity-severe';
+                } else {
+                    severity = 'Severe';
+                    message = assessmentData.messages[4];
+                    severityClass = 'severity-severe';
+                }
+            } else if (assessment === 'anxiety') {
+                // GAD-7 scoring
+                if (totalScore >= 0 && totalScore <= 4) {
+                    severity = 'Minimal';
+                    message = assessmentData.messages[0];
+                    severityClass = 'severity-minimal';
+                } else if (totalScore >= 5 && totalScore <= 9) {
+                    severity = 'Mild';
+                    message = assessmentData.messages[1];
+                    severityClass = 'severity-mild';
+                } else if (totalScore >= 10 && totalScore <= 14) {
+                    severity = 'Moderate';
+                    message = assessmentData.messages[2];
+                    severityClass = 'severity-moderate';
+                } else {
+                    severity = 'Severe';
+                    message = assessmentData.messages[3];
+                    severityClass = 'severity-severe';
+                }
+            } else {
+                // Other assessments
+                const percentage = (totalScore / maxScore) * 100;
+                
+                if (percentage <= 20) {
+                    severity = 'Minimal';
+                    message = assessmentData.messages[0];
+                    severityClass = 'severity-minimal';
+                } else if (percentage <= 40) {
+                    severity = 'Mild';
+                    message = assessmentData.messages[1];
+                    severityClass = 'severity-mild';
+                } else if (percentage <= 60) {
+                    severity = 'Moderate';
+                    message = assessmentData.messages[2];
+                    severityClass = 'severity-moderate';
+                } else if (percentage <= 80) {
+                    severity = 'Significant';
+                    message = assessmentData.messages[3];
+                    severityClass = 'severity-severe';
+                } else {
+                    severity = 'Severe';
+                    message = assessmentData.messages[4];
+                    severityClass = 'severity-severe';
+                }
+            }
+            
+            // Display severity and message
+            const severityEl = document.getElementById('result-severity');
+            severityEl.textContent = severity;
+            severityEl.className = 'result-severity ' + severityClass;
+            
+            document.getElementById('result-message').textContent = message;
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up initial state
+            showPage('welcome');
+        });
+    </script>
+</body>
+</html>
