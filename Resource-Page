@@ -305,7 +305,7 @@
     <header>
         <div class="container header-content">
             <a href="mitra_landing_page.html" class="logo">
-                <img src="Logo.jpg" alt="Mitraa Logo">
+                <img src="logo.jpg" alt="Mitraa Logo">
             </a>
             <nav>
                  <ul>
